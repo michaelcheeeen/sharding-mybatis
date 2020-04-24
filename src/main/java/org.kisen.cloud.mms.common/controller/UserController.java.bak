@@ -1,0 +1,41 @@
+/**
+ * @file: UserController
+ * @author: michael
+ * @date: 2020/2/16 12:07
+ * @copyright: 南京凯盛
+ */
+package org.kisen.cloud.mms.common.controller;
+
+import org.kisen.cloud.mms.common.entity.User1;
+import org.kisen.cloud.mms.common.service.User1Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ *
+ *
+ * @author michael
+ * @version 1.0 Created on 2020/2/16 12:07
+ */
+@RestController
+@RequestMapping("/common/user")
+public class UserController{
+
+    @Autowired
+    private User1Service user1Service;
+
+    @RequestMapping("/user/save")
+    @ResponseBody
+    public String save() {
+        for (int i = 0; i < 10; i++) {
+            User1 user = new User1();
+            user.setName("test" + i);
+            user.setCityId(1%2==0?1:2);
+            user.setSex(i % 2 == 0 ? 1 : 2);
+            user1Service.save(user);
+        }
+
+        return "success";
+    }
+
+}
